@@ -37,7 +37,7 @@ module.exports = function(vorpal, broker) {
 			actions.forEach(item => {
 				const action = item.action;
 				const state = item.available;
-				const params = action && action.params ? Object.keys(action.params).join(", ") : "";
+				const params = action && action.params ? JSON.stringify(action.name.startsWith('$node') ? action.params : _.mapValues(action.params.props, p => p.name)) : "";
 
 				if (args.options.filter && !match(item.name, args.options.filter))
 					return;
